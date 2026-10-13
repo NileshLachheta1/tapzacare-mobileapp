@@ -22,6 +22,10 @@ Dose history survives app restarts on this device. Online booking history and mo
 
 Repository: [NileshLachheta1/tapzacare-mobileapp](https://github.com/NileshLachheta1/tapzacare-mobileapp). Final local APK: [`dist/TapzaCare-1.1.0-universal.apk`](dist/TapzaCare-1.1.0-universal.apk), with [`SHA256SUMS`](dist/SHA256SUMS). See [`docs/ASSIGNMENT_REVIEW.md`](docs/ASSIGNMENT_REVIEW.md) for the requirement audit and evidence. The initial reviewed application and subsequent bonus implementation are separate source commits; earlier development milestones were not reconstructed. APK release publishing remains pending. Actual time spent was not supplied and is not estimated.
 
+## Demo recordings
+
+[New bonus walkthrough — v1.1.0](docs/demo/tapza-care-bonus-demo.mp4) · [Core assignment demo](docs/demo/tapza-care-demo.mp4) · [Chapters and recording notes](docs/demo/README.md)
+
 ## Run on Android
 
 Use Node 24 (`.nvmrc` is included), npm, a JDK and the Android SDK. This machine was built with JDK 21, Android SDK 37, Build Tools 37.0.0 and NDK 27.1.12297006. The default target SDK is 36 and minimum SDK is 24.

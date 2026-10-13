@@ -97,3 +97,13 @@
 **Automation adjustment:** Maestro 2.11.0 timed out during a single long JSON input operation. The editor flow now enters the same JSON in bounded chunks; this changes test input delivery, not the app validation or assertions.
 
 **Final verification:** 73 Jest tests / 15 suites, TypeScript and ESLint pass. Universal Android 1.1.0 (3) builds, installs and verifies its APK signature; generic iOS Debug compilation passed. Maestro smoke and offline flows passed. Admin live apply, persisted edit after restart and restored tabs passed; its last Home selector selected the Android navigation button. Replaced that step with stop/launch and verified the restored Home/Medicines assertions in a focused rerun. The complete revised admin flow was not rerun end-to-end after this final test-only change; no three-flow suite pass is claimed.
+
+## Bonus recording update — 13 October 2026
+
+**Request:** Update the recording to include the bonus points.
+
+**Delivery:** Added a captioned native Android v1.1.0 bonus walkthrough alongside the existing mandatory-feature demo. Captured Hindi/dark/haptic settings, a delivered local test notification, prescription shared-element motion and dose tracking, doctor/prescription deep links, date/slot selection and success animation, offline queue/reconnection sync, and live config apply/restart/reset. Added a chapter index and linked the new recording from README.
+
+**Capture notes:** Trimmed idle time and long JSON text entry; retained the speed of application animations. The admin Maestro attempt timed out during text entry; completed the same valid edit and its persistence/reset directly through the native UI. Isolated the recording ADB connection after interruptions to the default server. The ending card reports the existing 73 unit tests and two passing Maestro flows; no new complete admin Maestro pass or physical haptic verification is claimed. Application code and APK are unchanged.
+
+**Recording verification:** Final duration 173.9 seconds; 720 × 1760 MP4/H.264, silent, about 3.8 MiB. Full decode completed without errors. Inspected chapter headers, Hindi text, delivered notification, booking success, queued/confirmed states and the persisted edited layout. The mandatory demo is retained alongside the bonus walkthrough.

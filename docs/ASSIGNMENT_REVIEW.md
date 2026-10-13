@@ -61,3 +61,7 @@ New native screenshots: [Hindi and dark mode](screenshots/bonus/dark-hindi.png),
 Release artifact: `TapzaCare-1.1.0-universal.apk`, package `com.tapza.care`, version code 3, four ABIs, bundled production JS and verified APK v2 signature. SHA-256: `1a0bb47267c817d58f9b1fb051062f8ad9901e5787b4bf9214d959b7f189f84b`.
 
 Maestro 2.11.0: smoke (53 s) and offline queue/restart sync (40 s) passed. Admin apply/persistence/reset assertions passed, but a final Home selector chose the OS button; replaced it with a restart assertion and verified that portion separately. The revised complete admin flow remains unverified as one uninterrupted run. TypeScript, ESLint and all 73 Jest tests passed on final source.
+
+## Updated bonus recording
+
+[Native v1.1.0 bonus walkthrough](demo/tapza-care-bonus-demo.mp4) with [chapter index and capture notes](demo/README.md). Includes actual reminder delivery, Hindi/dark settings, shared-element navigation, both deep links, booking success, offline queue/reconnection sync and live config apply/restart/reset. Haptics and E2E evidence are identified explicitly in captions rather than claimed as sensory or test-run video proof. The original mandatory demo remains available above.
