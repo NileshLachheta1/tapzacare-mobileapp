@@ -1,0 +1,18 @@
+[
+  {
+    "id": "ananya",
+    "name": "Dr. Ananya Reddy",
+    "specialty": "General physician",
+    "photoUrl": "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=200&h=240&q=80",
+    "feeInr": 500,
+    "languages": ["Telugu", "Hindi", "English"]
+  },
+  {
+    "id": "arjun",
+    "name": "Dr. Arjun Rao",
+    "specialty": "Family physician",
+    "photoUrl": "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=200&h=240&q=80",
+    "feeInr": 450,
+    "languages": ["Telugu", "English"]
+  }
+]

@@ -1,0 +1,254 @@
+{
+  "version": 2,
+  "theme": {
+    "primary": "#8A3B18",
+    "secondary": "#F9E6CA",
+    "background": "#FFFAF2",
+    "surface": "#FFFFFF",
+    "textPrimary": "#38291F",
+    "textSecondary": "#716052",
+    "accent": "#F5CB77",
+    "surfaceAlt": "#F6EDDF",
+    "border": "#ECDFCF",
+    "warmSurface": "#FFF1CD",
+    "warmText": "#7B4D12",
+    "festival": {
+      "name": "Diwali",
+      "greeting": "Happy Diwali",
+      "bannerImageUrl": "asset://hero-diwali"
+    }
+  },
+  "tabs": [
+    {
+      "id": "home",
+      "label": "Home",
+      "icon": "house",
+      "screen": "home"
+    },
+    {
+      "id": "bookings",
+      "label": "Bookings",
+      "icon": "calendar-days",
+      "screen": "bookings"
+    },
+    {
+      "id": "prescriptions",
+      "label": "Medicines",
+      "icon": "notebook-tabs",
+      "screen": "prescriptions"
+    },
+    {
+      "id": "profile",
+      "label": "Profile",
+      "icon": "user-round",
+      "screen": "profile"
+    }
+  ],
+  "sections": [
+    {
+      "id": "hero_banner",
+      "type": "hero_banner",
+      "title": "",
+      "background": {
+        "kind": "gradient",
+        "value": "[\"#F9E6CA\", \"#F6EDDF\"]"
+      },
+      "items": [
+        {
+          "id": "greeting",
+          "greeting": "Happy Diwali, Lakshmi",
+          "headline": "A brighter Diwali.\nA healthier you.",
+          "description": "Celebrate with a little care for the whole family.",
+          "location": "Madhapur, Hyderabad · Tapza Family Clinic",
+          "imageUrl": "asset://hero-diwali",
+          "buttonLabel": "Book a visit",
+          "action": {
+            "kind": "scroll",
+            "sectionType": "doctor_carousel"
+          }
+        }
+      ]
+    },
+    {
+      "id": "offer_strip",
+      "type": "offer_strip",
+      "title": "",
+      "background": {
+        "kind": "image",
+        "value": "asset://clinic-pattern"
+      },
+      "items": [
+        {
+          "id": "clinic-offer",
+          "message": "Diwali care: family checkups from ₹799. This week at your clinic.",
+          "icon": "sparkles"
+        }
+      ]
+    },
+    {
+      "id": "service_grid",
+      "type": "service_grid",
+      "title": "A gift of good health",
+      "background": {
+        "kind": "color",
+        "value": "#F6EDDF"
+      },
+      "items": [
+        {
+          "id": "family",
+          "name": "Family checkup",
+          "description": "Make wellbeing a tradition",
+          "priceInr": 799,
+          "imageUrl": "asset://family",
+          "doctorId": "arjun",
+          "badge": "Diwali special"
+        },
+        {
+          "id": "screen",
+          "name": "Health screening",
+          "description": "Start the season with care",
+          "priceInr": 349,
+          "imageUrl": "asset://blood",
+          "doctorId": "ananya"
+        },
+        {
+          "id": "consult",
+          "name": "Family doctor",
+          "description": "A familiar face for care",
+          "priceInr": 450,
+          "imageUrl": "asset://consult",
+          "doctorId": "arjun"
+        },
+        {
+          "id": "vaccine",
+          "name": "Flu vaccination",
+          "description": "Stay well this season",
+          "priceInr": 649,
+          "imageUrl": "asset://vaccine",
+          "doctorId": "arjun"
+        }
+      ],
+      "columns": 2
+    },
+    {
+      "id": "category_chips",
+      "type": "category_chips",
+      "title": "",
+      "background": {
+        "kind": "color",
+        "value": "#FFFFFF"
+      },
+      "items": [
+        {
+          "id": "family",
+          "label": "Family care",
+          "icon": "users",
+          "action": {
+            "kind": "scroll",
+            "sectionType": "doctor_carousel"
+          }
+        },
+        {
+          "id": "lab",
+          "label": "Lab tests",
+          "icon": "test-tube-diagonal",
+          "action": {
+            "kind": "scroll",
+            "sectionType": "service_grid"
+          }
+        },
+        {
+          "id": "vaccine",
+          "label": "Vaccines",
+          "icon": "syringe",
+          "action": {
+            "kind": "scroll",
+            "sectionType": "service_grid"
+          }
+        },
+        {
+          "id": "pharmacy",
+          "label": "Pharmacy",
+          "icon": "pill",
+          "action": {
+            "kind": "tab",
+            "screen": "prescriptions"
+          }
+        }
+      ]
+    },
+    {
+      "id": "doctor_carousel",
+      "type": "doctor_carousel",
+      "title": "People you can trust",
+      "background": {
+        "kind": "color",
+        "value": "#FFFFFF"
+      },
+      "items": [
+        {
+          "id": "arjun",
+          "doctorId": "arjun",
+          "nextAvailableLabel": "12:00 PM · next clinic day"
+        },
+        {
+          "id": "ananya",
+          "doctorId": "ananya",
+          "nextAvailableLabel": "11:30 AM · next clinic day"
+        }
+      ]
+    },
+    {
+      "id": "quick_actions",
+      "type": "quick_actions",
+      "title": "How can we help?",
+      "background": {
+        "kind": "color",
+        "value": "#FFFAF2"
+      },
+      "items": [
+        {
+          "id": "book",
+          "label": "Book",
+          "icon": "calendar-plus",
+          "action": {
+            "kind": "scroll",
+            "sectionType": "doctor_carousel"
+          }
+        },
+        {
+          "id": "prescriptions",
+          "label": "Prescriptions",
+          "icon": "notebook-tabs",
+          "action": {
+            "kind": "tab",
+            "screen": "prescriptions"
+          }
+        },
+        {
+          "id": "reminders",
+          "label": "Reminders",
+          "icon": "alarm-clock",
+          "action": {
+            "kind": "tab",
+            "screen": "prescriptions"
+          }
+        },
+        {
+          "id": "family",
+          "label": "Family",
+          "icon": "users-round",
+          "action": {
+            "kind": "tab",
+            "screen": "profile"
+          }
+        }
+      ]
+    }
+  ],
+  "designTokens": {
+    "spacingScale": 1,
+    "fontScale": 1,
+    "radiusScale": 1
+  }
+}

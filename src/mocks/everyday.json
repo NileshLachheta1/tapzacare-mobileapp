@@ -1,0 +1,249 @@
+{
+  "version": 1,
+  "theme": {
+    "primary": "#145C50",
+    "secondary": "#E3F0E8",
+    "background": "#F7F8F4",
+    "surface": "#FFFFFF",
+    "textPrimary": "#172E29",
+    "textSecondary": "#5C6C65",
+    "accent": "#C6E7AC",
+    "surfaceAlt": "#EDF1EB",
+    "border": "#E2E8E2",
+    "warmSurface": "#F8F0DF",
+    "warmText": "#705223"
+  },
+  "tabs": [
+    {
+      "id": "home",
+      "label": "Home",
+      "icon": "house",
+      "screen": "home"
+    },
+    {
+      "id": "bookings",
+      "label": "Bookings",
+      "icon": "calendar-days",
+      "screen": "bookings"
+    },
+    {
+      "id": "prescriptions",
+      "label": "Medicines",
+      "icon": "notebook-tabs",
+      "screen": "prescriptions"
+    },
+    {
+      "id": "profile",
+      "label": "Profile",
+      "icon": "user-round",
+      "screen": "profile"
+    }
+  ],
+  "sections": [
+    {
+      "id": "hero_banner",
+      "type": "hero_banner",
+      "title": "",
+      "background": {
+        "kind": "gradient",
+        "value": "[\"#E3F0E8\", \"#EDF1EB\"]"
+      },
+      "items": [
+        {
+          "id": "greeting",
+          "greeting": "Good morning, Lakshmi",
+          "headline": "A little care.\nA healthier day.",
+          "description": "Trusted care for you and the people you love.",
+          "location": "Madhapur, Hyderabad · Tapza Family Clinic",
+          "imageUrl": "asset://hero-care",
+          "buttonLabel": "Book a visit",
+          "action": {
+            "kind": "scroll",
+            "sectionType": "doctor_carousel"
+          }
+        }
+      ]
+    },
+    {
+      "id": "category_chips",
+      "type": "category_chips",
+      "title": "",
+      "background": {
+        "kind": "color",
+        "value": "#FFFFFF"
+      },
+      "items": [
+        {
+          "id": "consult",
+          "label": "Consult",
+          "icon": "stethoscope",
+          "action": {
+            "kind": "scroll",
+            "sectionType": "doctor_carousel"
+          }
+        },
+        {
+          "id": "lab",
+          "label": "Lab tests",
+          "icon": "test-tube-diagonal",
+          "action": {
+            "kind": "scroll",
+            "sectionType": "service_grid"
+          }
+        },
+        {
+          "id": "pharmacy",
+          "label": "Pharmacy",
+          "icon": "pill",
+          "action": {
+            "kind": "tab",
+            "screen": "prescriptions"
+          }
+        },
+        {
+          "id": "vaccine",
+          "label": "Vaccines",
+          "icon": "syringe",
+          "action": {
+            "kind": "scroll",
+            "sectionType": "service_grid"
+          }
+        }
+      ]
+    },
+    {
+      "id": "quick_actions",
+      "type": "quick_actions",
+      "title": "How can we help?",
+      "background": {
+        "kind": "color",
+        "value": "#F7F8F4"
+      },
+      "items": [
+        {
+          "id": "book",
+          "label": "Book",
+          "icon": "calendar-plus",
+          "action": {
+            "kind": "scroll",
+            "sectionType": "doctor_carousel"
+          }
+        },
+        {
+          "id": "prescriptions",
+          "label": "Prescriptions",
+          "icon": "notebook-tabs",
+          "action": {
+            "kind": "tab",
+            "screen": "prescriptions"
+          }
+        },
+        {
+          "id": "reminders",
+          "label": "Reminders",
+          "icon": "alarm-clock",
+          "action": {
+            "kind": "tab",
+            "screen": "prescriptions"
+          }
+        },
+        {
+          "id": "family",
+          "label": "Family",
+          "icon": "users-round",
+          "action": {
+            "kind": "tab",
+            "screen": "profile"
+          }
+        }
+      ]
+    },
+    {
+      "id": "service_grid",
+      "type": "service_grid",
+      "title": "Care, close to home",
+      "background": {
+        "kind": "color",
+        "value": "#EDF1EB"
+      },
+      "items": [
+        {
+          "id": "checkup",
+          "name": "Health check",
+          "description": "A complete health picture",
+          "priceInr": 999,
+          "imageUrl": "asset://checkup",
+          "doctorId": "ananya",
+          "badge": "Popular"
+        },
+        {
+          "id": "blood",
+          "name": "Blood tests",
+          "description": "Simple, reliable screening",
+          "priceInr": 399,
+          "imageUrl": "asset://blood",
+          "doctorId": "ananya"
+        },
+        {
+          "id": "consult",
+          "name": "Doctor visit",
+          "description": "Care that listens to you",
+          "priceInr": 500,
+          "imageUrl": "asset://consult",
+          "doctorId": "ananya"
+        },
+        {
+          "id": "vaccine",
+          "name": "Vaccination",
+          "description": "Protection for your family",
+          "priceInr": 699,
+          "imageUrl": "asset://vaccine",
+          "doctorId": "arjun"
+        }
+      ],
+      "columns": 2
+    },
+    {
+      "id": "doctor_carousel",
+      "type": "doctor_carousel",
+      "title": "People you can trust",
+      "background": {
+        "kind": "color",
+        "value": "#FFFFFF"
+      },
+      "items": [
+        {
+          "id": "ananya",
+          "doctorId": "ananya",
+          "nextAvailableLabel": "11:30 AM · next clinic day"
+        },
+        {
+          "id": "arjun",
+          "doctorId": "arjun",
+          "nextAvailableLabel": "12:00 PM · next clinic day"
+        }
+      ]
+    },
+    {
+      "id": "offer_strip",
+      "type": "offer_strip",
+      "title": "",
+      "background": {
+        "kind": "color",
+        "value": "#F8F0DF"
+      },
+      "items": [
+        {
+          "id": "clinic-offer",
+          "message": "Your trusted neighbourhood clinic. Here for your family.",
+          "icon": "shield-check"
+        }
+      ]
+    }
+  ],
+  "designTokens": {
+    "spacingScale": 1,
+    "fontScale": 1,
+    "radiusScale": 1
+  }
+}

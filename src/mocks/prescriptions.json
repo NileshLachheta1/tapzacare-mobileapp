@@ -1,0 +1,46 @@
+[
+  {
+    "id": "rx-family-care",
+    "issuedAt": "2026-10-12T05:30:00Z",
+    "doctorName": "Dr. Ananya Reddy",
+    "clinicName": "Tapza Family Clinic · Madhapur, Hyderabad",
+    "medicines": [
+      {
+        "id": "vitamin-c",
+        "name": "Vitamin C 500 mg",
+        "dose": "1 tablet",
+        "days": 14,
+        "timing": ["morning"]
+      },
+      {
+        "id": "daily-supplement",
+        "name": "Clinic supplement",
+        "dose": "1 capsule",
+        "days": 7,
+        "timing": ["morning", "afternoon", "night"]
+      },
+      {
+        "id": "multivitamin",
+        "name": "Multivitamin",
+        "dose": "1 tablet",
+        "days": 14,
+        "timing": ["night"]
+      }
+    ]
+  },
+  {
+    "id": "rx-follow-up",
+    "issuedAt": "2026-10-08T06:00:00Z",
+    "doctorName": "Dr. Arjun Rao",
+    "clinicName": "Tapza Family Clinic · Madhapur, Hyderabad",
+    "medicines": [
+      {
+        "id": "multivitamin",
+        "name": "Multivitamin",
+        "dose": "1 tablet",
+        "days": 10,
+        "timing": ["morning"]
+      }
+    ]
+  }
+]
