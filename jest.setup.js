@@ -46,3 +46,28 @@ jest.mock('@gorhom/bottom-sheet', () => {
     TouchableOpacity,
   };
 });
+
+jest.mock('@react-native-community/netinfo', () => ({
+  addEventListener: jest.fn(callback => {
+    callback({ isConnected: true, isInternetReachable: true });
+    return jest.fn();
+  }),
+}));
+jest.mock('react-native-haptic-feedback', () => ({ trigger: jest.fn() }));
+jest.mock('@notifee/react-native', () => ({
+  __esModule: true,
+  default: {
+    getInitialNotification: jest.fn(async () => null),
+    onForegroundEvent: jest.fn(() => jest.fn()),
+    getNotificationSettings: jest.fn(async () => ({ authorizationStatus: 1 })),
+    requestPermission: jest.fn(async () => ({ authorizationStatus: 1 })),
+    createChannel: jest.fn(async () => 'medicine-reminders'),
+    getTriggerNotificationIds: jest.fn(async () => []),
+    createTriggerNotification: jest.fn(async () => 'test'),
+    cancelTriggerNotifications: jest.fn(async () => {}),
+  },
+  AuthorizationStatus: { DENIED: 0, AUTHORIZED: 1 },
+  TriggerType: { TIMESTAMP: 0 },
+  AndroidImportance: { DEFAULT: 3 },
+  EventType: { PRESS: 1 },
+}));

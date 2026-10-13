@@ -11,7 +11,8 @@
     "surfaceAlt": "#EDF1EB",
     "border": "#E2E8E2",
     "warmSurface": "#F8F0DF",
-    "warmText": "#705223"
+    "warmText": "#705223",
+    "mode": "light"
   },
   "tabs": [
     {
@@ -245,5 +246,47 @@
     "spacingScale": 1,
     "fontScale": 1,
     "radiusScale": 1
+  },
+  "darkTheme": {
+    "mode": "dark",
+    "primary": "#9CDECB",
+    "secondary": "#203E36",
+    "background": "#101C19",
+    "surface": "#1B2B26",
+    "surfaceAlt": "#243930",
+    "textPrimary": "#EEF7F2",
+    "textSecondary": "#B2C7BC",
+    "accent": "#E5B96A",
+    "border": "#43574C",
+    "warmSurface": "#3C3220",
+    "warmText": "#FFD598",
+    "danger": "#FFB4A9",
+    "dangerSurface": "#482722"
+  },
+  "darkBackgrounds": {
+    "hero_banner": {
+      "kind": "gradient",
+      "value": "[\"#172D25\", \"#24392C\"]"
+    },
+    "category_chips": {
+      "kind": "color",
+      "value": "#101C19"
+    },
+    "quick_actions": {
+      "kind": "color",
+      "value": "#101C19"
+    },
+    "service_grid": {
+      "kind": "color",
+      "value": "#101C19"
+    },
+    "doctor_carousel": {
+      "kind": "color",
+      "value": "#101C19"
+    },
+    "offer_strip": {
+      "kind": "color",
+      "value": "#3C3220"
+    }
   }
 }

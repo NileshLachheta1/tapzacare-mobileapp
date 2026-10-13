@@ -1,0 +1,42 @@
+appId: com.tapza.care
+name: Tapza Care native bonus smoke
+---
+- launchApp:
+    clearState: true
+- assertVisible: "A little care.*"
+- tapOn: "Medicines"
+- tapOn:
+    id: "prescription-rx-family-care"
+- assertVisible: "Your medicine schedule"
+- tapOn:
+    id: "dose-rx-family-care-vitamin-c-morning"
+- assertVisible: "Taken · Undo"
+- stopApp
+- launchApp
+- openLink: "tapzacare://prescription/rx-family-care"
+- assertVisible: "Your medicine schedule"
+- assertVisible: "Taken · Undo"
+- tapOn: "Profile"
+- scrollUntilVisible:
+    element:
+      id: "dark-mode"
+    direction: DOWN
+- tapOn:
+    id: "dark-mode"
+- tapOn: "हिन्दी"
+- assertVisible: "डार्क मोड"
+- tapOn: "English"
+- openLink: "tapzacare://doctor/ananya"
+- assertVisible: "Book a clinic visit"
+- tapOn:
+    id: "booking-date-.*"
+    index: 1
+- tapOn:
+    id: "booking-slot-ananya_.*_09:00"
+- scrollUntilVisible:
+    element: "Confirm booking"
+    direction: DOWN
+- tapOn: "Confirm booking"
+- assertVisible: "You’re all booked."
+- tapOn: "View my booking"
+- assertVisible: "Confirmed"

@@ -1,6 +1,6 @@
 {
   "name": "tapza-care",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -11,11 +11,14 @@
     "typecheck": "tsc --noEmit",
     "test:watch": "jest --watch",
     "android:apk": "cd android && ./gradlew assembleDebug",
-    "bundle:android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output /tmp/tapza-care.android.bundle --assets-dest /tmp/tapza-care-assets"
+    "bundle:android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output /tmp/tapza-care.android.bundle --assets-dest /tmp/tapza-care-assets",
+    "test:e2e": "maestro test .maestro"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "5.2.14",
+    "@notifee/react-native": "9.1.8",
     "@react-native-async-storage/async-storage": "2.2.0",
+    "@react-native-community/netinfo": "12.0.1",
     "@react-navigation/bottom-tabs": "7.20.0",
     "@react-navigation/native": "7.5.0",
     "@react-navigation/native-stack": "7.20.0",
@@ -23,6 +26,7 @@
     "react": "19.2.3",
     "react-native": "0.87.1",
     "react-native-gesture-handler": "2.33.0",
+    "react-native-haptic-feedback": "3.0.0",
     "react-native-reanimated": "4.7.1",
     "react-native-safe-area-context": "5.10.1",
     "react-native-screens": "4.29.0",

@@ -1,5 +1,7 @@
+import { useOffline } from '../offline/OfflineProvider';
+import { bookingApi as mockApi } from '../offline/api';
 import { useEffect, useState } from 'react';
-import { mockApi, isAbortError } from '../../api/mockApi';
+import { isAbortError } from '../../api/mockApi';
 import { useConfig } from '../../config/ConfigProvider';
 import type { Doctor } from '../../config/schema';
 import { useBooking } from '../booking/BookingProvider';
@@ -7,6 +9,10 @@ import { useClinicToday } from '../prescriptions/useClinicToday';
 import { nextAvailableSlot, type DoctorAvailability } from './availability';
 
 export function useDoctorAvailability(doctors: Doctor[], attempt: number) {
+  const { online, items } = useOffline();
+  const queueRevision = items
+    .map(item => `${item.id}:${item.status}`)
+    .join('|');
   const { settings, getMockSettings } = useConfig();
   const { availabilityRevision } = useBooking();
   const today = useClinicToday();
@@ -66,6 +72,8 @@ export function useDoctorAvailability(doctors: Doctor[], attempt: number) {
     }
     return () => request.abort();
   }, [
+    online,
+    queueRevision,
     ids,
     today,
     attempt,

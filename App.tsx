@@ -1,4 +1,7 @@
 import React from 'react';
+import { RemindersProvider } from './src/features/reminders/RemindersProvider';
+import { OfflineProvider } from './src/features/offline/OfflineProvider';
+import { PreferencesProvider } from './src/features/settings/Preferences';
 import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
@@ -14,13 +17,19 @@ export default function App() {
   return (
     <GestureHandlerRootView style={styles.root}>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-        <ConfigProvider>
-          <BookingProvider>
-            <DoseProvider>
-              <AppNavigator />
-            </DoseProvider>
-          </BookingProvider>
-        </ConfigProvider>
+        <PreferencesProvider>
+          <ConfigProvider>
+            <OfflineProvider>
+              <BookingProvider>
+                <DoseProvider>
+                  <RemindersProvider>
+                    <AppNavigator />
+                  </RemindersProvider>
+                </DoseProvider>
+              </BookingProvider>
+            </OfflineProvider>
+          </ConfigProvider>
+        </PreferencesProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

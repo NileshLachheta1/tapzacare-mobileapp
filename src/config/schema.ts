@@ -33,6 +33,9 @@ export const themeSchema = z.object({
   border: colour.optional(),
   warmSurface: colour.optional(),
   warmText: colour.optional(),
+  mode: z.enum(['light', 'dark']).optional(),
+  danger: colour.optional(),
+  dangerSurface: colour.optional(),
 });
 
 const actionSchema = z.discriminatedUnion('kind', [
@@ -66,7 +69,7 @@ const heroItem = z.object({
   action: actionSchema,
 });
 const actionItem = z.object({ id, label: id, icon: id, action: actionSchema });
-const serviceItem = z.object({
+export const serviceItem = z.object({
   id,
   name: id,
   description: id,
@@ -121,6 +124,8 @@ const envelopeSchema = z
   .object({
     version: z.number().int().positive(),
     theme: themeSchema,
+    darkTheme: themeSchema.optional(),
+    darkBackgrounds: z.record(z.string(), backgroundSchema).optional(),
     tabs: z
       .array(z.object({ id, label: id, icon: id, screen: screenSchema }))
       .min(1),

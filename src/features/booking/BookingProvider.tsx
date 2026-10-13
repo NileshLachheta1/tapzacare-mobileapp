@@ -6,17 +6,21 @@ import React, {
   useSyncExternalStore,
 } from 'react';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { mockApi } from '../../api/mockApi';
+import { bookingApi, isOnline } from '../offline/api';
+import { useOffline } from '../offline/OfflineProvider';
 import { useConfig } from '../../config/ConfigProvider';
 import { BookingController } from './controller';
 
 const BookingContext = createContext<BookingController | null>(null);
 export function BookingProvider({ children }: React.PropsWithChildren) {
   const { getMockSettings, consumeConfirmationSettings } = useConfig();
+  const { queue } = useOffline();
   const [controller] = useState(
     () =>
       new BookingController({
-        api: mockApi,
+        api: bookingApi,
+        offline: () => !isOnline(),
+        enqueue: queue.enqueue,
         settings: getMockSettings,
         consumeConfirmationSettings,
       }),

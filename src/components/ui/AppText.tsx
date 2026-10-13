@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslate } from '../../i18n';
 import { Text, type TextProps } from 'react-native';
 import { useTheme } from '../../theme/ThemeProvider';
 import type { AppTheme } from '../../theme/tokens';
@@ -16,9 +17,20 @@ export function AppText({
   ...props
 }: Props) {
   const theme = useTheme();
+  const tr = useTranslate();
+  const pieces = React.Children.toArray(props.children);
+  const content = pieces.every(
+    value => typeof value === 'string' || typeof value === 'number',
+  )
+    ? tr(pieces.join(''))
+    : props.children;
   return (
     <Text
       {...props}
+      children={content}
+      accessibilityLabel={
+        props.accessibilityLabel ? tr(props.accessibilityLabel) : undefined
+      }
       allowFontScaling
       style={[
         {

@@ -17,7 +17,7 @@ export function PrescriptionsNavigator() {
         screenOptions={{
           headerShown: false,
           contentStyle: { backgroundColor: t.colours.background },
-          animation: reduced ? 'none' : 'default',
+          animation: reduced ? 'none' : 'fade',
         }}
       >
         <Stack.Screen

@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import {
+  SharedPrescriptionHeader,
+  useSharedPrescription,
+} from '../../navigation/SharedPrescription';
 import {
   FlatList,
   Pressable,
@@ -33,6 +37,10 @@ import {
 export function PrescriptionListScreen({
   navigation,
 }: NativeStackScreenProps<PrescriptionStackParams, 'PrescriptionList'>) {
+  const shared = useSharedPrescription();
+  const sources = useRef<Record<string, React.ElementRef<typeof View> | null>>(
+    {},
+  );
   const { prescriptions, loading, failed, retry } = usePrescriptions();
   const doses = useDoses();
   const today = useClinicToday();
@@ -122,9 +130,15 @@ export function PrescriptionListScreen({
                   item.doctorName
                 }, ${item.medicines.length} medicines. View medicines.`}
                 onPress={() =>
-                  navigation.navigate('PrescriptionDetail', {
-                    prescriptionId: item.id,
-                  })
+                  shared.begin(
+                    item.id,
+                    item.doctorName,
+                    sources.current[item.id] ?? null,
+                    () =>
+                      navigation.navigate('PrescriptionDetail', {
+                        prescriptionId: item.id,
+                      }),
+                  )
                 }
                 style={({ pressed }) => [
                   s.card,
@@ -144,9 +158,17 @@ export function PrescriptionListScreen({
                         year: 'numeric',
                       })}
                     </AppText>
-                    <AppText variant="title" weight="semibold">
-                      {item.doctorName}
-                    </AppText>
+                    <View
+                      ref={node => {
+                        sources.current[item.id] = node;
+                      }}
+                      collapsable={false}
+                    >
+                      <SharedPrescriptionHeader
+                        id={item.id}
+                        name={item.doctorName}
+                      />
+                    </View>
                   </View>
                   <CareIcon name="chevron-right" />
                 </View>

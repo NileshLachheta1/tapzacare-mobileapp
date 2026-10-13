@@ -1,0 +1,40 @@
+appId: com.tapza.care
+name: Offline booking survives restart and syncs
+---
+- launchApp:
+    clearState: true
+- assertVisible: "A little care.*"
+- openLink: "tapzacare://doctor/ananya"
+- assertVisible: "Book a clinic visit"
+- tapOn:
+    id: "booking-date-.*"
+    index: 1
+- assertVisible:
+    id: "booking-slot-ananya_.*_09:00"
+- tapOn: "Close booking"
+- tapOn: "Profile"
+- scrollUntilVisible:
+    element:
+      id: "offline-mode"
+    direction: DOWN
+- tapOn:
+    id: "offline-mode"
+- assertVisible: "Offline · cached times only"
+- openLink: "tapzacare://doctor/ananya"
+- tapOn:
+    id: "booking-date-.*"
+    index: 1
+- tapOn:
+    id: "booking-slot-ananya_.*_09:00"
+- scrollUntilVisible:
+    element: "Queue booking"
+    direction: DOWN
+- tapOn: "Queue booking"
+- assertVisible: "Saved for sync"
+- tapOn: "View my booking"
+- assertVisible: "Queued · awaiting connection"
+- stopApp
+- launchApp
+- assertVisible: "A little care.*"
+- tapOn: "Bookings"
+- assertVisible: "Confirmed"

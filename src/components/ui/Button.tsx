@@ -1,4 +1,7 @@
 import React from 'react';
+import { usePreferences } from '../../features/settings/Preferences';
+import { haptic } from '../../features/settings/haptics';
+import { useTranslate } from '../../i18n';
 import {
   Pressable,
   StyleSheet,
@@ -25,6 +28,8 @@ export function Button({
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
 }) {
+  const { haptics } = usePreferences();
+  const tr = useTranslate();
   const theme = useTheme();
   const styles = useStyles(makeStyles);
   const colour = secondary ? theme.colours.primary : theme.colours.onPrimary;
@@ -33,7 +38,11 @@ export function Button({
       accessibilityRole="button"
       accessibilityState={{ disabled }}
       disabled={disabled}
-      onPress={onPress}
+      accessibilityLabel={tr(label)}
+      onPress={() => {
+        haptic(haptics);
+        onPress();
+      }}
       style={({ pressed }) => [
         styles.root,
         secondary && styles.secondary,

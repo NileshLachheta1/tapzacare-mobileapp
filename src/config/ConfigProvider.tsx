@@ -1,3 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { usePreferences } from '../features/settings/Preferences';
+import { applyAppearance } from './appearance';
 import React, {
   createContext,
   useCallback,
@@ -30,6 +33,9 @@ type ConfigState = {
 };
 type ConfigContextValue = ConfigState & {
   settings: MockSettings;
+  rawConfig: LayoutConfig;
+  applyDraft(value: unknown): Promise<void>;
+  resetDraft(): Promise<void>;
   reload(): void;
   switchVariant(): void;
   updateSettings(patch: Partial<MockSettings>): void;
@@ -47,6 +53,8 @@ const initialState: ConfigState = {
 const ConfigContext = createContext<ConfigContextValue | null>(null);
 
 export function ConfigProvider({ children }: React.PropsWithChildren) {
+  const { dark } = usePreferences();
+  const drafts = useRef<Partial<Record<ConfigVariant, LayoutConfig>>>({});
   const [state, setState] = useState(initialState);
   const [settings, setSettings] = useState(defaultMockSettings);
   const settingsRef = useRef(settings);
@@ -70,7 +78,24 @@ export function ConfigProvider({ children }: React.PropsWithChildren) {
       if (current !== sequence.current || controller.signal.aborted) {
         return;
       }
-      setState({ ...result, variant, loading: false, initialized: true });
+      let draft = drafts.current[variant];
+      if (!draft) {
+        try {
+          const saved = await AsyncStorage.getItem(`tapza.admin.v1.${variant}`);
+          if (saved) draft = parseConfig(JSON.parse(saved));
+        } catch {
+          /* Invalid local edits do not replace validated server config. */
+        }
+      }
+      if (current !== sequence.current || controller.signal.aborted) return;
+      if (draft) drafts.current[variant] = draft;
+      setState({
+        ...result,
+        config: draft ?? result.config,
+        variant,
+        loading: false,
+        initialized: true,
+      });
       void configRepository.persistSelection(variant);
     } catch (error) {
       if (!isAbortError(error) && current === sequence.current) {
@@ -123,9 +148,44 @@ export function ConfigProvider({ children }: React.PropsWithChildren) {
     }
     return snapshot;
   }, []);
+  const applyDraft = useCallback(async (input: unknown) => {
+    const config = parseConfig(input);
+    if (!config.tabs.some(tab => tab.screen === 'profile'))
+      throw new Error('Keep the Profile tab so the editor stays reachable.');
+    const variant = variantRef.current;
+    await AsyncStorage.setItem(
+      `tapza.admin.v1.${variant}`,
+      JSON.stringify(config),
+    );
+    drafts.current[variant] = config;
+    if (variantRef.current === variant) {
+      ++sequence.current;
+      request.current?.abort();
+      setState(previous => ({
+        ...previous,
+        config,
+        loading: false,
+        initialized: true,
+      }));
+    }
+  }, []);
+  const resetDraft = useCallback(async () => {
+    const variant = variantRef.current;
+    await AsyncStorage.removeItem(`tapza.admin.v1.${variant}`);
+    delete drafts.current[variant];
+    await load(variant);
+  }, [load]);
+  const config = useMemo(
+    () => applyAppearance(state.config, dark),
+    [state.config, dark],
+  );
   const value = useMemo(
     () => ({
       ...state,
+      config,
+      rawConfig: state.config,
+      applyDraft,
+      resetDraft,
       settings,
       reload,
       switchVariant,
@@ -135,6 +195,9 @@ export function ConfigProvider({ children }: React.PropsWithChildren) {
     }),
     [
       state,
+      config,
+      applyDraft,
+      resetDraft,
       settings,
       reload,
       switchVariant,
@@ -145,7 +208,7 @@ export function ConfigProvider({ children }: React.PropsWithChildren) {
   );
   return (
     <ConfigContext.Provider value={value}>
-      <ThemeProvider config={state.config}>{children}</ThemeProvider>
+      <ThemeProvider config={config}>{children}</ThemeProvider>
     </ConfigContext.Provider>
   );
 }

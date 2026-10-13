@@ -54,8 +54,8 @@ export function createTheme(config: LayoutConfig) {
       warmSurface:
         colours.warmSurface ?? mix(colours.surface, colours.accent, 0.25),
       warmText: colours.warmText ?? colours.textPrimary,
-      danger: '#9B3229',
-      dangerSurface: '#FFF0EA',
+      danger: colours.danger ?? '#9B3229',
+      dangerSurface: colours.dangerSurface ?? '#FFF0EA',
       transparent: 'transparent',
       backdrop: '#172E2970',
       skeleton: mix(colours.surface, colours.primary, 0.09),

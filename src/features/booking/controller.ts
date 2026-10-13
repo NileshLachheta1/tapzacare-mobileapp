@@ -12,6 +12,7 @@ import {
 import {
   bookingSchema,
   slotSchema,
+  type Appointment,
   type BookingRequest,
   type BookingResponse,
   type BookingTarget,
@@ -43,6 +44,8 @@ type Dependencies = {
   settings(): MockSettings;
   consumeConfirmationSettings(): MockSettings;
   now?: () => number;
+  offline?: () => boolean;
+  enqueue?: (appointment: Appointment) => Promise<void>;
 };
 
 /** Owns the booking transaction independently of rendering and native sheet gestures. */
@@ -112,6 +115,7 @@ export class BookingController {
       !f.target ||
       f.confirmation === 'submitting' ||
       f.confirmation === 'success' ||
+      f.confirmation === 'queued' ||
       !dateChoices(this.now()).includes(date)
     ) {
       return;
@@ -143,7 +147,8 @@ export class BookingController {
     if (
       !f.target ||
       f.confirmation === 'submitting' ||
-      f.confirmation === 'success'
+      f.confirmation === 'success' ||
+      f.confirmation === 'queued'
     ) {
       return;
     }
@@ -179,7 +184,8 @@ export class BookingController {
     if (
       !f.target ||
       f.confirmation === 'submitting' ||
-      f.confirmation === 'success'
+      f.confirmation === 'success' ||
+      f.confirmation === 'queued'
     ) {
       return;
     }
@@ -231,7 +237,8 @@ export class BookingController {
       f.providerStatus !== 'ready' ||
       f.slotStatus !== 'ready' ||
       f.confirmation === 'submitting' ||
-      f.confirmation === 'success'
+      f.confirmation === 'success' ||
+      f.confirmation === 'queued'
     ) {
       return;
     }
@@ -244,21 +251,31 @@ export class BookingController {
       return;
     }
     const clientId = `pending-${++this.nextClientId}`;
-    this.send({
-      type: 'submit',
-      appointment: {
-        id: clientId,
-        status: 'pending',
-        doctor: f.target.doctor,
-        service: f.target.service,
-        slot,
-        feeInr: f.target.service?.priceInr ?? f.target.doctor.feeInr,
-        booking: null,
-      },
-    });
+    const appointment: Appointment = {
+      id: clientId,
+      status: 'pending',
+      doctor: f.target.doctor,
+      service: f.target.service,
+      slot,
+      feeInr: f.target.service?.priceInr ?? f.target.doctor.feeInr,
+      booking: null,
+    };
+    this.send({ type: 'submit', appointment });
     const controller = new AbortController();
     this.confirmationRequest = controller;
     try {
+      if (this.deps.offline?.()) {
+        if (!this.deps.enqueue) throw new Error('Offline queue unavailable');
+        await this.deps.enqueue(appointment);
+        if (!controller.signal.aborted)
+          this.send({
+            type: 'queued',
+            session: f.session,
+            clientId,
+            appointment,
+          });
+        return;
+      }
       const response = await this.deps.api.postBooking(
         { doctorId: f.target.doctorId, slotId: slot.id },
         this.deps.consumeConfirmationSettings(),

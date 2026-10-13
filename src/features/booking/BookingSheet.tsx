@@ -1,3 +1,7 @@
+import { useOffline } from '../offline/OfflineProvider';
+import { usePreferences } from '../settings/Preferences';
+import { haptic } from '../settings/haptics';
+import { useTranslate } from '../../i18n';
 import React, { useCallback, useEffect, useRef } from 'react';
 import {
   AccessibilityInfo,
@@ -48,12 +52,18 @@ function SheetButton({
 }) {
   const t = useTheme();
   const s = useStyles(makeStyles);
+  const { haptics } = usePreferences();
+  const tr = useTranslate();
   return (
     <TouchableOpacity
       accessibilityRole="button"
       accessibilityState={{ disabled }}
       disabled={disabled}
-      onPress={onPress}
+      accessibilityLabel={tr(label)}
+      onPress={() => {
+        haptic(haptics);
+        onPress();
+      }}
       activeOpacity={t.opacity.pressed}
     >
       <View
@@ -196,6 +206,8 @@ export function BookingSheet({
   const presented = useRef(false);
   const closing = useRef(false);
   const open = f.target !== null;
+  const { online } = useOffline();
+  const { haptics } = usePreferences();
   const busy = f.confirmation === 'submitting';
   useEffect(() => {
     if (open && !closing.current) {
@@ -236,14 +248,17 @@ export function BookingSheet({
   }, [controller, open]);
   useEffect(() => {
     if (f.confirmation === 'success') {
+      haptic(haptics, 'success');
       AccessibilityInfo.announceForAccessibility('Your visit is confirmed.');
     }
+    if (f.confirmation === 'error' || f.confirmation === 'conflict')
+      haptic(haptics, 'error');
     if (f.confirmation === 'conflict') {
       AccessibilityInfo.announceForAccessibility(
         'That slot was just booked. Choose another available time.',
       );
     }
-  }, [f.confirmation]);
+  }, [f.confirmation, haptics]);
   const backdrop = useCallback(
     (props: BottomSheetBackdropProps) => (
       <BottomSheetBackdrop
@@ -318,7 +333,16 @@ export function BookingSheet({
               />
             </TouchableOpacity>
           </View>
-          {f.confirmation === 'success' && f.confirmed ? (
+          {f.confirmation === 'queued' ? (
+            <StateMessage
+              title="Saved for sync"
+              message="Your request is saved on this device. It is not confirmed yet."
+              action="View my booking"
+              onAction={() => {
+                if (controller.close()) onViewBookings();
+              }}
+            />
+          ) : f.confirmation === 'success' && f.confirmed ? (
             <>
               <View style={s.success}>
                 <SuccessMark />
@@ -599,7 +623,9 @@ export function BookingSheet({
               </View>
               <SheetButton
                 label={
-                  f.confirmation === 'error'
+                  !online
+                    ? 'Queue booking'
+                    : f.confirmation === 'error'
                     ? 'Try confirmation again'
                     : 'Confirm booking'
                 }

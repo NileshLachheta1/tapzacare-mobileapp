@@ -1,0 +1,41 @@
+appId: com.tapza.care
+name: Live config editor validates and persists a change
+---
+- launchApp:
+    clearState: true
+- assertVisible: "A little care.*"
+- tapOn: "Profile"
+- scrollUntilVisible:
+    element: "Edit configuration"
+    direction: DOWN
+- tapOn: "Edit configuration"
+- tapOn:
+    id: "config-editor"
+- inputText: '{"version":1,"theme":{"primary":"#145C50","secondary":"#E3F0E8","background":"#F6F7F2","surface":"#FFFFFF","textPrimary"'
+- inputText: ':"#172E29","textSecondary":"#52675F","accent":"#E5B96A"},"tabs":[{"id":"home","label":"My clinic","icon":"home","screen"'
+- inputText: ':"home"},{"id":"profile","label":"Profile","icon":"user-round","screen":"profile"}],"sections":[{"id":"notice","type":"o'
+- inputText: 'ffer_strip","background":{"kind":"color","value":"#E3F0E8"},"items":[{"id":"notice","message":"Live edit verified","icon'
+- inputText: '":"sparkles"}]}]}'
+- hideKeyboard
+- scrollUntilVisible:
+    element: "Apply configuration"
+    direction: DOWN
+- tapOn: "Apply configuration"
+- tapOn: "My clinic"
+- assertVisible: "Live edit verified"
+- stopApp
+- launchApp
+- assertVisible: "Live edit verified"
+- tapOn: "Profile"
+- scrollUntilVisible:
+    element: "Edit configuration"
+    direction: DOWN
+- tapOn: "Edit configuration"
+- scrollUntilVisible:
+    element: "Restore bundled configuration"
+    direction: DOWN
+- tapOn: "Restore bundled configuration"
+- assertVisible: "Medicines"
+- stopApp
+- launchApp
+- assertVisible: "A little care.*"

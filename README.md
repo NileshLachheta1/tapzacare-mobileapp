@@ -18,9 +18,9 @@ Bare React Native 0.87.1 and strict TypeScript implementation of the Tapza Care 
 - Profile controls for latency, endpoint failures, empty responses, one-shot booking outcomes and failed dose saves.
 - Tests for config validation, renderer actions, caching, startup/theme switching, booking screens, optimistic reconciliation, rollback, conflicts and stale-request cancellation.
 
-Dose history survives app restarts on this device. Booking history and mock reservations remain session-scoped.
+Dose history survives app restarts on this device. Online booking history and mock reservations remain session-scoped. Offline booking requests and their reconciled results persist locally.
 
-Repository: [NileshLachheta1/tapzacare-mobileapp](https://github.com/NileshLachheta1/tapzacare-mobileapp). Final local APK: [`dist/TapzaCare-1.0.0-universal.apk`](dist/TapzaCare-1.0.0-universal.apk), with [`SHA256SUMS`](dist/SHA256SUMS). See [`docs/ASSIGNMENT_REVIEW.md`](docs/ASSIGNMENT_REVIEW.md) for the requirement audit and evidence. Source is delivered as one initial commit of the reviewed application; earlier development milestones were not committed and have not been reconstructed. APK release publishing remains pending. Actual time spent was not supplied and is not estimated.
+Repository: [NileshLachheta1/tapzacare-mobileapp](https://github.com/NileshLachheta1/tapzacare-mobileapp). Final local APK: [`dist/TapzaCare-1.1.0-universal.apk`](dist/TapzaCare-1.1.0-universal.apk), with [`SHA256SUMS`](dist/SHA256SUMS). See [`docs/ASSIGNMENT_REVIEW.md`](docs/ASSIGNMENT_REVIEW.md) for the requirement audit and evidence. The initial reviewed application and subsequent bonus implementation are separate source commits; earlier development milestones were not reconstructed. APK release publishing remains pending. Actual time spent was not supplied and is not estimated.
 
 ## Run on Android
 
@@ -78,7 +78,7 @@ The output is `android/app/build/outputs/apk/release/app-release.apk`. Install w
 adb install -r android/app/build/outputs/apk/release/app-release.apk
 ```
 
-The final review build includes arm64-v8a, armeabi-v7a, x86 and x86_64, uses the template's development signing key, and does not require Metro. Package: `com.tapza.care`; version: `1.0.0` (code `2`). Use a private production key for store distribution. APK binaries are excluded from Git; upload the named file as a release asset when publishing.
+The final review build includes arm64-v8a, armeabi-v7a, x86 and x86_64, uses the template's development signing key, and does not require Metro. Package: `com.tapza.care`; version: `1.1.0` (code `3`). Use a private production key for store distribution. APK binaries are excluded from Git; upload the named file as a release asset when publishing.
 
 ## Check the code
 
@@ -129,7 +129,7 @@ Confirmation creates a pending appointment immediately and locks dismissal/dupli
 
 The sheet supports handle/content dragging, two snap points, swipe-down dismissal, backdrop dismissal and Android Back, with an accessible Close action. Controls inside the sheet use Gorhom's gesture-compatible touchables; the horizontal date strip uses Gesture Handler's ScrollView. During confirmation, close gestures/backdrop dismissal are disabled and Android Back is consumed. Bookings displays pending and confirmed records from the same shared state.
 
-Booking history is intentionally session-scoped; durable history and offline booking queues are outside this slice. No payment or notification is sent.
+Online booking history remains session-scoped. Offline requests persist and sync on reconnection/app resume, with explicit queued, syncing, confirmed, conflict and retry states. No payment is taken.
 
 ## Prescriptions and daily doses
 
@@ -137,7 +137,7 @@ Open **Medicines**, then a dated prescription card. The detail screen groups sch
 
 Dose identities include patient, prescription, medicine, IST calendar date and timing. Taking a morning dose cannot mark its afternoon/night dose, another prescription with the same medicine ID, or another day. History is versioned in AsyncStorage at `tapza.doses.v1.<patientId>` and restored before editing is allowed. Quick edits to different doses are serialized so writes cannot overwrite each other. Failed saves retain the prior state and show a retryable error; read/corrupt-data errors disable editing until history loads successfully.
 
-Each medicine's course starts on the prescription issue date and lasts its `days` count. Date controls allow review of the course, including past days. Future dates are read-only. Today updates at IST midnight and on app resume. An ended course opens on its last date for history review. Empty medicine schedules are supported. Prescription content is fictional demo data; no medication notification or server-side dose write is implemented.
+Each medicine's course starts on the prescription issue date and lasts its `days` count. Date controls allow review of the course, including past days. Future dates are read-only. Today updates at IST midnight and on app resume. An ended course opens on its last date for history review. Empty medicine schedules are supported. Prescription content is fictional demo data; medicine reminders are optional local notifications; no server-side dose write is implemented.
 
 ## Review failure states
 
@@ -180,8 +180,31 @@ See `docs/IMPLEMENTATION_PLAN.md` for the implementation plan, `docs/UI_DESIGN.m
 
 ## Final verification — 13 October 2026
 
-Strict TypeScript and ESLint pass. **65 tests in 14 suites** pass, covering configuration, rendering, state recovery, optimistic reconciliation, 409 slot conflicts, request cancellation, live next availability, dose persistence/isolation, course dates and adaptive tab layout.
+Strict TypeScript and ESLint pass. **73 tests in 15 suites** pass, covering configuration, rendering, state recovery, optimistic reconciliation, 409 slot conflicts, request cancellation, live next availability, dose persistence/isolation, course dates and adaptive tab layout.
 
-Android review uses a release build on an API 35 ARM64 emulator, including native sheet scrolling/drag dismissal, service booking, dose tracking and restoration after a force-stop. The review corrected full-width gradients, two-column grid rounding, disabled-button opacity, large-font tab labels, live next-slot labels and Android activity restoration. See the audit for completed scenarios and evidence. Earlier milestones verified a generic iOS native build; iOS runtime QA and physical midrange-device frame-rate/TalkBack/VoiceOver review remain unverified. No 60 fps claim is made from emulator testing.
+Android review uses a release build on an API 35 ARM64 emulator, including native sheet scrolling/drag dismissal, service booking, dose tracking and restoration after a force-stop. The review corrected full-width gradients, two-column grid rounding, disabled-button opacity, large-font tab labels, live next-slot labels and Android activity restoration. See the audit for completed scenarios and evidence. The bonus implementation also passed a generic iOS Debug native build; iOS runtime QA and physical midrange-device frame-rate/TalkBack/VoiceOver review remain unverified. No 60 fps claim is made from emulator testing.
 
 The APK is an internal review build signed with a development key. The repository contains the reviewed source, tests, documentation, screenshots and demo. APK release publishing and the author's actual time total remain submission steps; no historical commits or elapsed hours have been fabricated.
+
+## Optional bonus features — version 1.1.0
+
+All ten bonus categories have an implementation:
+
+| Bonus | Where to try it |
+| --- | --- |
+| Local medicine notifications | Profile → Enable reminders. Grants permission on demand; schedules untaken doses at 08:00 / 14:00 / 21:00 IST within each medicine’s course for the next seven days (up to 48 notifications). Refreshes on dose changes/app resume. Open weekly to renew; device battery settings can delay delivery. Includes a 10-second test and cancellation. |
+| Hindi i18n | Profile → हिन्दी / English. A shared translation layer covers navigation and primary Home/booking/prescription/settings copy and interpolated dose progress. Language persists. Supplied names, medication instructions and unmatched/admin diagnostic copy retain English. |
+| Config-driven dark mode | Profile → Dark mode. Each JSON config supplies `darkTheme` and `darkBackgrounds`; preference persists. |
+| Shared-element detail transition | Open a prescription card. Its doctor header moves from its measured list position into the detail header with a custom Reanimated overlay. Reduced motion bypasses it. |
+| Haptics | Buttons and booking success/error use native haptic feedback. Profile toggle persists and system haptic settings are respected. |
+| Offline booking queue | Load a doctor/date online, enable Profile → Simulate offline (or disconnect), reopen that cached date, select a slot and Queue booking. Requests remain unconfirmed until sync. Restore connectivity or relaunch online; Bookings shows sync results. Conflicts require a new time. |
+| Deep links | `tapzacare://doctor/ananya` and `tapzacare://prescription/rx-family-care` work from cold/warm launches. Unknown IDs show recoverable errors. Android and iOS custom schemes are registered. |
+| Live admin editor | Profile → Edit configuration. Edit validated JSON and apply immediately. Each variant’s override persists locally; restore returns to its normal mock config. Profile must remain reachable. |
+| Native end-to-end tests | `.maestro/smoke.yaml`, `offline.yaml`, and `admin.yaml`: doses/restart, links, Hindi/dark mode, booking, queued sync and persistent config edits. Install Maestro and the APK, then `npm run test:e2e`. Tests clear app data on the selected test device. |
+| Custom success animation | Reanimated spring/checkmark on booking success, respecting reduced motion. |
+
+Offline mode uses previously fetched doctor/date availability; unseen dates require a connection. Sync retries reuse saved mock receipts. This remains an in-process mock backend: a real API must supply server-side idempotency and authoritative reservations, especially for process death between server acceptance and saving the receipt. Queue sync runs while the app is active/on resume; it is not a background network service.
+
+Native haptics require a capable device; an emulator cannot establish how they feel. Android notification delivery is verified with a local test notification; physical-device scheduling/battery behaviour and iOS runtime remain separate from compilation checks.
+
+Bonus verification: 73 Jest tests and strict TypeScript/ESLint pass; Android universal release and generic iOS Debug builds pass. Maestro 2.11.0 completed the smoke and offline flows. Admin live edit, restart persistence and reset passed their device assertions; its final ambiguous Home selector was replaced with a restart check, which passed in isolation. The entire revised admin flow has not been rerun as one uninterrupted pass.

@@ -9,7 +9,13 @@ export type BookingFlow = {
   slotStatus: 'idle' | 'loading' | 'ready' | 'empty' | 'error';
   slots: Slot[];
   selectedSlotId: string | null;
-  confirmation: 'selecting' | 'submitting' | 'success' | 'error' | 'conflict';
+  confirmation:
+    | 'selecting'
+    | 'submitting'
+    | 'success'
+    | 'queued'
+    | 'error'
+    | 'conflict';
   confirmed: Appointment | null;
 };
 export type BookingState = {
@@ -46,6 +52,12 @@ export type BookingAction =
   | { type: 'select'; slotId: string }
   | { type: 'submit'; appointment: Appointment }
   | { type: 'confirmed'; session: number; clientId: string; booking: Booking }
+  | {
+      type: 'queued';
+      session: number;
+      clientId: string;
+      appointment: Appointment;
+    }
   | { type: 'failed'; session: number; clientId: string; conflict: boolean };
 
 export function bookingReducer(
@@ -201,6 +213,17 @@ export function bookingReducer(
             : f,
       };
     }
+    case 'queued':
+      return {
+        ...state,
+        appointments: state.appointments.filter(
+          item => item.id !== action.clientId,
+        ),
+        flow:
+          f.session === action.session
+            ? { ...f, confirmation: 'queued', confirmed: action.appointment }
+            : f,
+      };
     case 'failed':
       return {
         ...state,

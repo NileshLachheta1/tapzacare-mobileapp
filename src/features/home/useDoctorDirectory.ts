@@ -1,11 +1,14 @@
+import { useOffline } from '../offline/OfflineProvider';
+import { bookingApi as mockApi } from '../offline/api';
 import { useCallback, useEffect, useState } from 'react';
-import { isAbortError, mockApi } from '../../api/mockApi';
+import { isAbortError } from '../../api/mockApi';
 import { useConfig } from '../../config/ConfigProvider';
 import type { Doctor } from '../../config/schema';
 import type { DoctorDirectory } from './types';
 import { useDoctorAvailability } from './useDoctorAvailability';
 
 export function useDoctorDirectory(): DoctorDirectory {
+  const { online } = useOffline();
   const { settings, getMockSettings } = useConfig();
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [loading, setLoading] = useState(true);
@@ -32,6 +35,7 @@ export function useDoctorDirectory(): DoctorDirectory {
       });
     return () => controller.abort();
   }, [
+    online,
     settings.latencyMs,
     settings.failDoctors,
     settings.emptyLists,

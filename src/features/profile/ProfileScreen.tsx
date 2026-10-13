@@ -1,4 +1,5 @@
 import React from 'react';
+import { SettingsPanel } from '../settings/SettingsPanel';
 import { ScrollView, StyleSheet, Switch, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useConfig } from '../../config/ConfigProvider';
@@ -96,6 +97,7 @@ export function ProfileScreen() {
         disabled={loading}
         onPress={switchVariant}
       />
+      <SettingsPanel />
       <View style={s.demo}>
         <AppText variant="title" weight="semibold" accessibilityRole="header">
           Assignment demo controls

@@ -80,3 +80,20 @@
 **Follow-up request:** Update the code on the supplied GitHub repository.
 
 **Action:** Prepared an initial commit containing the reviewed source, Android/iOS projects, tests, lockfiles, assignment document, screenshots, demo and documentation, and configured the supplied repository as origin. Generated build directories, dependencies, local SDK/Xcode settings and dist APK artifacts remain ignored. This is the actual first source snapshot; earlier development history is not fabricated. The GitHub source push is authorised by this follow-up; a hosted APK release is not part of this code update.
+
+
+## Bonus implementation — 13 October 2026
+
+**Request:** Implement the remaining optional bonus points and finish quickly.
+
+**Changes:** Added Notifee local medicine reminders, persistent English/Hindi preferences and a central translation layer; JSON-provided dark palettes/backgrounds; a measured prescription-header shared-element overlay with reduced-motion support; native haptic feedback; a persistent offline booking queue with cached date availability, reconnect/resume sync, conflict/retry states and mock receipts; Android/iOS doctor and prescription deep links; a validated live JSON config editor with per-variant persistence/reset; and three Maestro end-to-end flows. Retained the custom Reanimated booking-success animation. Added eight focused tests (73 total).
+
+**Native findings:** Confirmed dark/Hindi layout and actual Android test-notification delivery. The first Maestro run exposed a warm intent arriving during JS startup: Android MainActivity now retains onNewIntent for Linking.getInitialURL. CocoaPods installation and the generic iOS Debug native build succeeded. Universal Android version is 1.1.0 (3).
+
+**Scope and limits:** Reminders are local, optional, bounded to a seven-day rolling window and course dates; no medical instructions are generated. Hindi translates the app’s main interaction copy while source medication names/instructions and unmatched diagnostic copy retain their original text. Offline sync uses the assignment’s mock backend and active/resume connectivity; a real backend needs authoritative idempotency. Shared-element motion is a custom measured overlay, not an experimental native-stack API. Emulator testing cannot verify the physical sensation of haptics or physical-device battery/FPS behaviour.
+
+**Editor review:** Native automation confirmed live edits and persistence after restart. Replaced a long per-character erase in the test with select-on-focus replacement, bounded the JSON input height to keep controls accessible, and made restore await configuration loading before closing the editor. The test now waits for restored tabs before selecting Home so it cannot accidentally press Android’s system Home button.
+
+**Automation adjustment:** Maestro 2.11.0 timed out during a single long JSON input operation. The editor flow now enters the same JSON in bounded chunks; this changes test input delivery, not the app validation or assertions.
+
+**Final verification:** 73 Jest tests / 15 suites, TypeScript and ESLint pass. Universal Android 1.1.0 (3) builds, installs and verifies its APK signature; generic iOS Debug compilation passed. Maestro smoke and offline flows passed. Admin live apply, persisted edit after restart and restored tabs passed; its last Home selector selected the Android navigation button. Replaced that step with stop/launch and verified the restored Home/Medicines assertions in a focused rerun. The complete revised admin flow was not rerun end-to-end after this final test-only change; no three-flow suite pass is claimed.

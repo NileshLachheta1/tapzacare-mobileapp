@@ -1,3 +1,4 @@
+import { SharedPrescriptionHeader } from '../../navigation/SharedPrescription';
 import React, { useState } from 'react';
 import {
   Pressable,
@@ -114,12 +115,11 @@ export function PrescriptionDetailScreen({
           <>
             <PrescriptionFetchNotice />
             <View style={s.summary}>
-              <View style={s.row}>
-                <CareIcon name="notebook-tabs" />
-                <AppText variant="title" weight="semibold" style={s.flex}>
-                  {prescription.doctorName}
-                </AppText>
-              </View>
+              <SharedPrescriptionHeader
+                id={prescription.id}
+                name={prescription.doctorName}
+                destination
+              />
               <AppText variant="small" tone="muted">
                 {prescription.clinicName}
               </AppText>

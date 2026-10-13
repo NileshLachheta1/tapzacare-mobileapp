@@ -1,4 +1,6 @@
 import React from 'react';
+import { QueuePanel } from '../offline/QueuePanel';
+import { useOffline } from '../offline/OfflineProvider';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -14,6 +16,7 @@ import { useBooking } from './BookingProvider';
 import { clinicDate, formatDate, formatSlotTime } from './dates';
 
 export function BookingsScreen() {
+  const { items } = useOffline();
   const { appointments } = useBooking();
   const t = useTheme();
   const s = useStyles(makeStyles);
@@ -33,14 +36,17 @@ export function BookingsScreen() {
         data={appointments}
         keyExtractor={item => item.id}
         contentContainerStyle={s.content}
+        ListHeaderComponent={<QueuePanel />}
         ListEmptyComponent={
-          <EmptyState
-            title="Your next visit starts here"
-            message="Meet the doctors at your neighbourhood clinic."
-            icon="calendar-days"
-            actionLabel="Explore your clinic"
-            onAction={() => navigation.navigate('home')}
-          />
+          items.length ? undefined : (
+            <EmptyState
+              title="Your next visit starts here"
+              message="Meet the doctors at your neighbourhood clinic."
+              icon="calendar-days"
+              actionLabel="Explore your clinic"
+              onAction={() => navigation.navigate('home')}
+            />
+          )
         }
         renderItem={({ item }) => (
           <View style={s.card} testID={`appointment-${item.id}`}>
@@ -89,7 +95,8 @@ export function BookingsScreen() {
               tone="muted"
               style={{ color: t.colours.textSecondary }}
             >
-              Bookings shown for this demo session.
+              Online bookings are session-scoped. Offline requests are saved on
+              this device.
             </AppText>
           ) : undefined
         }

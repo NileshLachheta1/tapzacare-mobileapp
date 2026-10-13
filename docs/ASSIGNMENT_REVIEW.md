@@ -26,7 +26,7 @@ Reviewed against `documents/Tapza Care — React Native Assignment (1).pdf` and 
 
 ## Verification
 
-- TypeScript and ESLint pass; Jest **65 tests / 14 suites** pass.
+- TypeScript and ESLint pass; Jest **73 tests / 15 suites** pass.
 - Universal release build contains production JS and four Android ABIs. APK v2 signature verified; SHA-256 recorded in dist/SHA256SUMS. Installed the final APK successfully.
 - Repeated density/activity recreation after the final fix: app remained running, with no AndroidRuntime or ReactNativeJS errors in the fresh log. Navigation restarts at Home; saved doses remain persisted.
 - Android API 35 ARM64 emulator, 1080 × 2400, normal 420 dpi; additional 540 dpi (~320 dp wide) / 2× system-font review.
@@ -40,14 +40,24 @@ Use Profile to set slow responses, endpoint empty/failure states, a one-shot 503
 
 ## Remaining submission facts and limits
 
-- Supplied repository: https://github.com/NileshLachheta1/tapzacare-mobileapp. Source is delivered as an initial commit of the completed reviewed app. Earlier milestones were not committed and have not been reconstructed. APK release publishing remains pending.
+- Supplied repository: https://github.com/NileshLachheta1/tapzacare-mobileapp. Source includes the initial reviewed app and a separate bonus implementation commit. Earlier milestones were not committed and have not been reconstructed. APK release publishing remains pending.
 - Actual time spent was not supplied. The implementation plan's hour estimates are not actual elapsed time.
 - APK uses the checked-in development signing key for internal review. It is not a store-signed production release.
 - Physical midrange-device FPS, TalkBack/VoiceOver and iOS runtime review remain unverified. Emulator interactions do not establish a 60 fps result. Prior milestones verified iOS compilation.
-- Bookings/mock reservations are session-scoped; doses/config persist locally. Fixtures are fictional. Bonus notifications, localization and offline booking queue were intentionally deferred.
+- Online bookings/mock reservations are session-scoped; offline requests, doses, config and preferences persist locally. Fixtures are fictional. The optional features have now been implemented; see README’s version 1.1.0 bonus table.
 
 ## Native evidence
 
 - [2 minute 38 second demo](demo/tapza-care-demo.mp4): festival/everyday switch, config-driven services/doctors, forced 409 conflict, reselection/success, bookings and morning/afternoon/night dose tracking. Silent native screen recording.
 - [Everyday](screenshots/01-home-everyday.png), [Diwali](screenshots/02-home-diwali.png), [booking](screenshots/03-booking.png), [409](screenshots/04-slot-conflict.png), [success](screenshots/05-booking-success.png), [large text](screenshots/06-large-text.png), [prescriptions](screenshots/07-prescriptions.png), [dose tracking](screenshots/08-dose-tracking.png).
 - Evidence was captured from the reviewed UI before the final native-only activity-restoration correction; the correction does not change screen content.
+
+## Version 1.1.0 bonus update
+
+See README for all ten optional categories, how to exercise them and explicit limits. New native dependencies: Notifee, NetInfo and react-native-haptic-feedback. Android dark/Hindi screenshots are under `screenshots/bonus`. Test-notification delivery was confirmed in Android notification records. Both custom link types are registered on Android/iOS; a startup-intent race found by Maestro was corrected. iOS generic Debug compilation passed.
+
+New native screenshots: [Hindi and dark mode](screenshots/bonus/dark-hindi.png), [offline booking queued](screenshots/bonus/offline-queued.png). The existing demo above records the mandatory 1.0.0 flows.
+
+Release artifact: `TapzaCare-1.1.0-universal.apk`, package `com.tapza.care`, version code 3, four ABIs, bundled production JS and verified APK v2 signature. SHA-256: `1a0bb47267c817d58f9b1fb051062f8ad9901e5787b4bf9214d959b7f189f84b`.
+
+Maestro 2.11.0: smoke (53 s) and offline queue/restart sync (40 s) passed. Admin apply/persistence/reset assertions passed, but a final Home selector chose the OS button; replaced it with a restart assertion and verified that portion separately. The revised complete admin flow remains unverified as one uninterrupted run. TypeScript, ESLint and all 73 Jest tests passed on final source.
