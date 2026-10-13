@@ -24,7 +24,9 @@ Repository: [NileshLachheta1/tapzacare-mobileapp](https://github.com/NileshLachh
 
 ## Demo recordings
 
-[New bonus walkthrough — v1.1.0](docs/demo/tapza-care-bonus-demo.mp4) · [Core assignment demo](docs/demo/tapza-care-demo.mp4) · [Chapters and recording notes](docs/demo/README.md)
+[Download bonus walkthrough — v1.1.0](https://raw.githubusercontent.com/NileshLachheta1/tapzacare-mobileapp/main/docs/demo/tapza-care-bonus-demo.mp4) · [Download core assignment demo](https://raw.githubusercontent.com/NileshLachheta1/tapzacare-mobileapp/main/docs/demo/tapza-care-demo.mp4) · [Chapters and recording notes](docs/demo/README.md)
+
+These links download the MP4 directly, bypassing GitHub’s file preview. Your browser may ask where to save it.
 
 ## Run on Android
 

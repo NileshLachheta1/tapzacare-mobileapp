@@ -1,7 +1,9 @@
 # Tapza Care recordings
 
-- [Bonus walkthrough — v1.1.0](tapza-care-bonus-demo.mp4): new 2 minute 54 second native Android recording covering the optional features, with chapter captions.
-- [Core assignment walkthrough](tapza-care-demo.mp4): the original 2 minute 38 second mandatory-feature demo.
+- [Download bonus walkthrough — v1.1.0](https://raw.githubusercontent.com/NileshLachheta1/tapzacare-mobileapp/main/docs/demo/tapza-care-bonus-demo.mp4): new 2 minute 54 second native Android recording covering the optional features, with chapter captions.
+- [Download core assignment walkthrough](https://raw.githubusercontent.com/NileshLachheta1/tapzacare-mobileapp/main/docs/demo/tapza-care-demo.mp4): the original 2 minute 38 second mandatory-feature demo.
+
+The download links bypass GitHub’s file-preview page. Opening an MP4 from the repository file tree still opens GitHub’s preview; the repository cannot change that page’s download behaviour. Browser settings may prompt for a save location.
 
 ## Bonus walkthrough chapters
 

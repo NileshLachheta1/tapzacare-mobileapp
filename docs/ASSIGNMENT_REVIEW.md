@@ -48,7 +48,7 @@ Use Profile to set slow responses, endpoint empty/failure states, a one-shot 503
 
 ## Native evidence
 
-- [2 minute 38 second demo](demo/tapza-care-demo.mp4): festival/everyday switch, config-driven services/doctors, forced 409 conflict, reselection/success, bookings and morning/afternoon/night dose tracking. Silent native screen recording.
+- [2 minute 38 second demo](https://raw.githubusercontent.com/NileshLachheta1/tapzacare-mobileapp/main/docs/demo/tapza-care-demo.mp4): festival/everyday switch, config-driven services/doctors, forced 409 conflict, reselection/success, bookings and morning/afternoon/night dose tracking. Silent native screen recording.
 - [Everyday](screenshots/01-home-everyday.png), [Diwali](screenshots/02-home-diwali.png), [booking](screenshots/03-booking.png), [409](screenshots/04-slot-conflict.png), [success](screenshots/05-booking-success.png), [large text](screenshots/06-large-text.png), [prescriptions](screenshots/07-prescriptions.png), [dose tracking](screenshots/08-dose-tracking.png).
 - Evidence was captured from the reviewed UI before the final native-only activity-restoration correction; the correction does not change screen content.
 
@@ -64,4 +64,4 @@ Maestro 2.11.0: smoke (53 s) and offline queue/restart sync (40 s) passed. Admin
 
 ## Updated bonus recording
 
-[Native v1.1.0 bonus walkthrough](demo/tapza-care-bonus-demo.mp4) with [chapter index and capture notes](demo/README.md). Includes actual reminder delivery, Hindi/dark settings, shared-element navigation, both deep links, booking success, offline queue/reconnection sync and live config apply/restart/reset. Haptics and E2E evidence are identified explicitly in captions rather than claimed as sensory or test-run video proof. The original mandatory demo remains available above.
+[Native v1.1.0 bonus walkthrough](https://raw.githubusercontent.com/NileshLachheta1/tapzacare-mobileapp/main/docs/demo/tapza-care-bonus-demo.mp4) with [chapter index and capture notes](demo/README.md). Includes actual reminder delivery, Hindi/dark settings, shared-element navigation, both deep links, booking success, offline queue/reconnection sync and live config apply/restart/reset. Haptics and E2E evidence are identified explicitly in captions rather than claimed as sensory or test-run video proof. The original mandatory demo remains available above.
