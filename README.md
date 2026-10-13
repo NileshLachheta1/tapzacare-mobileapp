@@ -22,11 +22,9 @@ Dose history survives app restarts on this device. Online booking history and mo
 
 Repository: [NileshLachheta1/tapzacare-mobileapp](https://github.com/NileshLachheta1/tapzacare-mobileapp). Final local APK: [`dist/TapzaCare-1.1.0-universal.apk`](dist/TapzaCare-1.1.0-universal.apk), with [`SHA256SUMS`](dist/SHA256SUMS). See [`docs/ASSIGNMENT_REVIEW.md`](docs/ASSIGNMENT_REVIEW.md) for the requirement audit and evidence. The initial reviewed application and subsequent bonus implementation are separate source commits; earlier development milestones were not reconstructed. APK release publishing remains pending. Actual time spent was not supplied and is not estimated.
 
-## Demo recordings
+## Demo Video
 
-[Download bonus walkthrough — v1.1.0](https://raw.githubusercontent.com/NileshLachheta1/tapzacare-mobileapp/main/docs/demo/tapza-care-bonus-demo.mp4) · [Download core assignment demo](https://raw.githubusercontent.com/NileshLachheta1/tapzacare-mobileapp/main/docs/demo/tapza-care-demo.mp4) · [Chapters and recording notes](docs/demo/README.md)
-
-These links download the MP4 directly, bypassing GitHub’s file preview. Your browser may ask where to save it.
+[Demo Video](https://raw.githubusercontent.com/NileshLachheta1/tapzacare-mobileapp/main/docs/demo/tapza-care-bonus-demo.mp4) · [Core Demo Video](https://raw.githubusercontent.com/NileshLachheta1/tapzacare-mobileapp/main/docs/demo/tapza-care-demo.mp4) · [Recording Notes](docs/demo/README.md)
 
 ## Run on Android
 
