@@ -11,7 +11,7 @@ The project setup and config-driven home are implemented in bare React Native, f
 | Step | Window | Work | Completion check |
 | --- | --- | --- | --- |
 | 1. UI design | Hours 0–3 | Define normal and Diwali themes, design tokens, all six home sections, booking sheet, prescriptions, and loading/empty/error states. | Reviewable interactive mobile prototype and UI specification. |
-| 2. Bare React Native foundation | Hours 3–5 | Scaffold React Native Community CLI with React Navigation; enable TypeScript strict; configure lint/typecheck/test scripts, providers, safe areas, and gesture root. Start Git history and AI log. Configure a Gradle review APK and attempt an early build. | App opens on Android; navigation and theme providers work; build setup is checked early. |
+| 2. Bare React Native foundation | Hours 3–5 | Scaffold React Native Community CLI with React Navigation; enable TypeScript strict; configure lint/typecheck/test scripts, providers, safe areas, and gesture root. Start Git history. Configure a Gradle review APK and attempt an early build. | App opens on Android; navigation and theme providers work; build setup is checked early. |
 | 3. Contracts and mock data | Hours 5–8 | Define and validate the supplied models; add realistic Indian fixtures, both layout configs, exact endpoint contracts, latency/failure/empty switches, and deterministic 409 conflicts. | Valid fixtures; bad configs rejected; unknown section types preserved for safe skipping. |
 | 4. Config and theme | Hours 8–11 | Fetch and validate config; derive colour, spacing, typography, and motion tokens; persist last good config and selected variant; render tabs from config. | Runtime switching changes colours, hero, order, items, and tabs without editing components. |
 | 5. Home sections | Hours 11–18 | Implement a typed section registry and all six section renderers. Add independent solid/gradient/image backgrounds, horizontal rows, service grid, photos, next slots, header collapse, hero parallax, and viewport reveals. | Both configs render completely; unknown section renders null; scrolling is smooth on Android. |
@@ -19,10 +19,10 @@ The project setup and config-driven home are implemented in bare React Native, f
 | 7. Prescriptions | Hours 25–30 | List and detail, morning/afternoon/night schedule, dose-taking interaction, local persistence by patient/prescription/medicine/date/timing. | Taking a morning dose does not mark another time or day taken; restart restores tracking. |
 | 8. Resilience and accessibility | Hours 30–35 | Content-shaped skeletons, empty/retry states, cached-config fallback, cold-start error, failed cache-write handling, large fonts, contrast, touch sizes and reduced motion. | Slow, failed, and empty mock scenarios remain usable in both themes. |
 | 9. Tests and Android QA | Hours 35–39 | Required behaviour tests; typecheck/lint; small-screen and large-font checks; release-like Android scrolling and gesture check. Start final APK build. | Required tests pass; no clipped essential controls; no repeated bookings or scroll stutter. |
-| 10. Submission | Hours 39–43 | Verify installable APK/build URL, README, AI log, screenshots, 2–3 minute demo, GitHub Release/repository link. | A reviewer can install and reproduce both themes, forced booking failure, and dose tracking. |
+| 10. Submission | Hours 39–43 | Verify installable APK/build URL, README, screenshots, 2–3 minute demo, GitHub Release/repository link. | A reviewer can install and reproduce both themes, forced booking failure, and dose tracking. |
 | 11. Reserve | Hours 43–48 | Build queue delays, device issues, fixes and final verification. | All mandatory deliverables complete; bonuses only if this reserve remains. |
 
-Commit at meaningful milestones throughout the actual work. Do not invent earlier commits or time spent. Keep README, AI log, and screenshots current rather than postponing all documentation until the end.
+Commit at meaningful milestones throughout the actual work. Do not invent earlier commits or time spent. Keep README and screenshots current rather than postponing all documentation until the end.
 
 ## Proposed stack
 
@@ -61,7 +61,6 @@ src/
     prescriptions/     # List/detail, schedules and persistent dose state
 __tests__/
 docs/
-AI_LOG.md
 README.md
 ```
 
@@ -121,7 +120,7 @@ Additional targeted checks are justified for cache fallback and per-day dose sta
 - Run typecheck, lint, required tests and native dependency checks. Verify gestures and list performance on a real mid-range Android device if available.
 - Install the final APK; do not treat an AAB or Expo Go link as equivalent to a verified installable release build.
 - Store screenshots and a 2–3 minute demo in `/docs`; show normal/festival, forced booking failure and reminders.
-- Complete README, AI_LOG.md, honest scope cuts/time spent, meaningful commit history, repository link and APK Release URL.
+- Complete README, honest scope cuts/time spent, meaningful commit history, repository link and APK Release URL.
 
 ## Bonus gate
 

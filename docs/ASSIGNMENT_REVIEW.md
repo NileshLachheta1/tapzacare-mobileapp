@@ -12,7 +12,7 @@ Reviewed against `documents/Tapza Care — React Native Assignment (1).pdf` and 
 | Resilience | Loading/empty/error states, retry, last-good config cache, cancellation, malformed-payload validation, persisted-dose read/write failure recovery. Profile exposes reproducible mock scenarios. |
 | API contract | Delayed in-process GET config/doctors/slots/prescriptions; POST bookings sends exactly doctorId and slotId. No real backend credentials needed. |
 | Engineering | Strict TypeScript, central tokens, accessible labels/touch targets, scalable text, focused behavioural tests, Android/iOS native projects. |
-| Delivery | Local universal review APK, README, AI_LOG, screenshots and demonstration under docs. Publishing/history/time accounting remain below. |
+| Delivery | Local universal review APK, README, screenshots and demonstration under docs. Publishing/history/time accounting remain below. |
 
 ## Fixes from the final review
 

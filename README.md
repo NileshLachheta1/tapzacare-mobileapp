@@ -180,7 +180,7 @@ React context owns one booking controller, observed with `useSyncExternalStore`.
 
 Doctor names, availability and prices are fictional demo content. The Unsplash photos in `src/mocks/doctors.json` are illustrative and do not identify the named doctors; native image failures fall back to initials. Replace with appropriate licensed clinic assets for a real deployment.
 
-See `docs/IMPLEMENTATION_PLAN.md` for the implementation plan, `docs/UI_DESIGN.md` for design decisions, and `AI_LOG.md` for AI-assisted changes. Actual assignment time spent has not yet been totalled; record it honestly before submission.
+See `docs/IMPLEMENTATION_PLAN.md` for the implementation plan and `docs/UI_DESIGN.md` for design decisions. Actual assignment time spent has not yet been totalled; record it honestly before submission.
 
 ## Final verification — 13 October 2026
 
